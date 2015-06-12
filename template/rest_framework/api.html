@@ -1,0 +1,9 @@
+{% extends "rest_framework/base.html" %}
+{% block script %}
+{{ block.super }}
+{% include 'autocomplete_light/static.html' %}
+{% endblock %}
+
+{% block footer %}
+	<p><a>PlutoF taxonomy module API</a></p>
+{% endblock %}

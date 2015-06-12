@@ -1,0 +1,6 @@
+Taxonomy module - Todos
+
+1) Tests to be written to cover (sub-)tree cloning and changing parent for subtree.
+2) Tests should be rewritten not to use fixtures - partly done.
+3) Creating acts is currently not initiated when creating subtrees - fixed, but needs testing.
+4) parent_described_in may need more automation.

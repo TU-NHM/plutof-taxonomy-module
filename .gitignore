@@ -1,0 +1,9 @@
+/env
+/build
+/admin
+/rest_framework
+/static
+*.pyc
+*.sublime-*
+*.swp
+apps/taxonomy/fixtures/taxonomy_data.sql

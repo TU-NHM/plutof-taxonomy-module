@@ -1,0 +1,200 @@
+[
+{
+    "pk": 1,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 2,
+        "descendant": 2
+    }
+},
+{
+    "pk": 2,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 2,
+        "descendant": 3
+    }
+},
+{
+    "pk": 3,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 3,
+        "descendant": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 4,
+        "descendant": 4
+    }
+},
+{
+    "pk": 5,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 3,
+        "descendant": 4
+    }
+},
+{
+    "pk": 6,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 2,
+        "ancestor": 2,
+        "descendant": 4
+    }
+},
+{
+    "pk": 7,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 5,
+        "descendant": 5
+    }
+},
+{
+    "pk": 8,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 3,
+        "descendant": 5
+    }
+},
+{
+    "pk": 9,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 2,
+        "ancestor": 2,
+        "descendant": 5
+    }
+},
+{
+    "pk": 10,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 6,
+        "descendant": 6
+    }
+},
+{
+    "pk": 11,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 2,
+        "descendant": 6
+    }
+},
+{
+    "pk": 12,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 7,
+        "descendant": 7
+    }
+},
+{
+    "pk": 13,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 6,
+        "descendant": 7
+    }
+},
+{
+    "pk": 14,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 2,
+        "ancestor": 2,
+        "descendant": 7
+    }
+},
+{
+    "pk": 15,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 8,
+        "descendant": 8
+    }
+},
+{
+    "pk": 17,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 0,
+        "ancestor": 1,
+        "descendant": 1
+    }
+},
+{
+    "pk": 18,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 1,
+        "ancestor": 1,
+        "descendant": 2
+    }
+},
+{
+    "pk": 19,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 2,
+        "ancestor": 1,
+        "descendant": 3
+    }
+},
+{
+    "pk": 20,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 3,
+        "ancestor": 1,
+        "descendant": 4
+    }
+},
+{
+    "pk": 21,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 3,
+        "ancestor": 1,
+        "descendant": 5
+    }
+},
+{
+    "pk": 22,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 2,
+        "ancestor": 1,
+        "descendant": 6
+    }
+},
+{
+    "pk": 23,
+    "model": "taxonomy.edge",
+    "fields": {
+        "length": 3,
+        "ancestor": 1,
+        "descendant": 7
+    }
+}
+]

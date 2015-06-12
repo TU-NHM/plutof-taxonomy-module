@@ -1,0 +1,58 @@
+[
+{
+  "pk": "dan", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "danish"
+  }
+},
+{
+  "pk": "eng", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "english"
+  }
+},
+{
+  "pk": "est", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "estonian"
+  }
+},
+{
+  "pk": "fin", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "finnish"
+  }
+},
+{
+  "pk": "lav", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "latvian"
+  }
+},
+{
+  "pk": "lit", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "lithuanian"
+  }
+},
+{
+  "pk": "nor", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "norwegian"
+  }
+},
+{
+  "pk": "swe", 
+  "model": "taxonomy.language", 
+  "fields": {
+    "name": "swedish"
+  }
+}
+]

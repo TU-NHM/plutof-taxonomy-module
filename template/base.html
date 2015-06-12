@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load staticfiles i18n %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PlutoF taxonomy module">
+    <meta name="author" content="University of Tartu Natural History Museum">
+
+    <title>{% trans 'PlutoF taxonomy module - API' %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'style/app.css' %}" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+              <li><a href="{% url 'getting-started' %}">{% trans 'Getting started' %}</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+      <div class="jumbotron">
+          {% block content %}
+          {% endblock %}
+      </div>
+
+    </div> <!-- /container -->
+
+    <script src="{% static 'vendor/jquery-1.10.2.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,722 @@
+[
+{
+    "pk": 0, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "<Unspecified>", 
+        "suffix": "", 
+        "bacteria_rank": "<Unspecified>", 
+        "zoology_rank": "<Unspecified>", 
+        "abbreviation": "UNK", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 5, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Domain", 
+        "suffix": "", 
+        "bacteria_rank": "Domain", 
+        "zoology_rank": "Domain", 
+        "abbreviation": "DOM", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 8, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superkingdom", 
+        "suffix": "", 
+        "bacteria_rank": "Superkingdom", 
+        "zoology_rank": "Superkingdom", 
+        "abbreviation": "SPK", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 10, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Kingdom", 
+        "suffix": "", 
+        "bacteria_rank": "Kingdom", 
+        "zoology_rank": "Kingdom", 
+        "abbreviation": "KGD", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 13, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subkingdom", 
+        "suffix": "", 
+        "bacteria_rank": "Subkingdom", 
+        "zoology_rank": "Subkingdom", 
+        "abbreviation": "SBK", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 14, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infrakingdom", 
+        "suffix": "", 
+        "bacteria_rank": "Infrakingdom", 
+        "zoology_rank": "Infrakingdom", 
+        "abbreviation": "INK", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 18, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superphylum", 
+        "suffix": "", 
+        "bacteria_rank": "Superphylum", 
+        "zoology_rank": "Superphylum", 
+        "abbreviation": "SPP", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 20, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Division", 
+        "suffix": "", 
+        "bacteria_rank": "Phylum", 
+        "zoology_rank": "Phylum", 
+        "abbreviation": "PHY", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 23, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subdivision", 
+        "suffix": "", 
+        "bacteria_rank": "Subphylum", 
+        "zoology_rank": "Subphylum", 
+        "abbreviation": "SBP", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 24, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infraphylum", 
+        "suffix": "", 
+        "bacteria_rank": "Infraphylum", 
+        "zoology_rank": "Infraphylum", 
+        "abbreviation": "INP", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 28, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superclass", 
+        "suffix": "", 
+        "bacteria_rank": "Superclass", 
+        "zoology_rank": "Superclass", 
+        "abbreviation": "SPC", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 29, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Grade", 
+        "suffix": "", 
+        "bacteria_rank": "Grade", 
+        "zoology_rank": "Grade", 
+        "abbreviation": "GRD", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 30, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Class", 
+        "suffix": "", 
+        "bacteria_rank": "Class", 
+        "zoology_rank": "Class", 
+        "abbreviation": "CLS", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 33, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subclass", 
+        "suffix": "", 
+        "bacteria_rank": "Subclass", 
+        "zoology_rank": "Subclass", 
+        "abbreviation": "SBC", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 34, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infraclass", 
+        "suffix": "", 
+        "bacteria_rank": "Infraclass", 
+        "zoology_rank": "Infraclass", 
+        "abbreviation": "INC", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 35, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "Division", 
+        "abbreviation": "DIV", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 36, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "Subdivision", 
+        "abbreviation": "SBD", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 37, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infradivision", 
+        "suffix": "", 
+        "bacteria_rank": "Infradivision", 
+        "zoology_rank": "Infradivision", 
+        "abbreviation": "IND", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 38, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superorder", 
+        "suffix": "", 
+        "bacteria_rank": "Superorder", 
+        "zoology_rank": "Superorder", 
+        "abbreviation": "SPO", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 40, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Order", 
+        "suffix": "", 
+        "bacteria_rank": "Order", 
+        "zoology_rank": "Order", 
+        "abbreviation": "ORD", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 43, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Suborder", 
+        "suffix": "", 
+        "bacteria_rank": "Suborder", 
+        "zoology_rank": "Suborder", 
+        "abbreviation": "SBO", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 44, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infraorder", 
+        "suffix": "", 
+        "bacteria_rank": "Infraorder", 
+        "zoology_rank": "Infraorder", 
+        "abbreviation": "INO", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 47, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Section[Order]", 
+        "suffix": "", 
+        "bacteria_rank": "Section[Order]", 
+        "zoology_rank": "Section[Order]", 
+        "abbreviation": "SEC", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 48, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superfamily", 
+        "suffix": "", 
+        "bacteria_rank": "Superfamily", 
+        "zoology_rank": "Superfamily", 
+        "abbreviation": "SPF", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 50, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Family", 
+        "suffix": "", 
+        "bacteria_rank": "Family", 
+        "zoology_rank": "Family", 
+        "abbreviation": "FAM", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 53, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subfamily", 
+        "suffix": "", 
+        "bacteria_rank": "Subfamily", 
+        "zoology_rank": "Subfamily", 
+        "abbreviation": "SBF", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 55, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Tribe", 
+        "suffix": "", 
+        "bacteria_rank": "Tribe", 
+        "zoology_rank": "Tribe", 
+        "abbreviation": "TRB", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 56, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subtribe", 
+        "suffix": "", 
+        "bacteria_rank": "Subtribe", 
+        "zoology_rank": "Subtribe", 
+        "abbreviation": "SBT", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 60, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Genus", 
+        "suffix": "", 
+        "bacteria_rank": "Genus", 
+        "zoology_rank": "Genus", 
+        "abbreviation": "GEN", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 61, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Nothogenus", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "", 
+        "abbreviation": "NOG", 
+        "prefix": "X"
+    }
+},
+{
+    "pk": 63, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subgenus", 
+        "suffix": ")", 
+        "bacteria_rank": "Subgenus", 
+        "zoology_rank": "Subgenus", 
+        "abbreviation": "SBG", 
+        "prefix": "("
+    }
+},
+{
+    "pk": 64, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "Division[Genus]", 
+        "abbreviation": "DIG", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 65, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Section[Genus]", 
+        "suffix": "", 
+        "bacteria_rank": "Section[Genus]", 
+        "zoology_rank": "Section[Genus]", 
+        "abbreviation": "SEG", 
+        "prefix": "sect._"
+    }
+},
+{
+    "pk": 66, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subsection[Genus]", 
+        "suffix": "", 
+        "bacteria_rank": "Subsection[Genus]", 
+        "zoology_rank": "Subdivision[Genus}", 
+        "abbreviation": "SUG", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 67, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Group[Genus]", 
+        "suffix": "", 
+        "bacteria_rank": "Group[Genus]", 
+        "zoology_rank": "Group[Genus]", 
+        "abbreviation": "GRG", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 68, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Superspecies", 
+        "suffix": "", 
+        "bacteria_rank": "Superspecies", 
+        "zoology_rank": "Superspecies", 
+        "abbreviation": "SPS", 
+        "prefix": "supsp._"
+    }
+},
+{
+    "pk": 69, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Aggregate", 
+        "suffix": "", 
+        "bacteria_rank": "Aggregate", 
+        "zoology_rank": "Aggregate", 
+        "abbreviation": "AGG", 
+        "prefix": "aggr._"
+    }
+},
+{
+    "pk": 70, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Species", 
+        "suffix": "", 
+        "bacteria_rank": "Species", 
+        "zoology_rank": "Species", 
+        "abbreviation": "SPE", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 71, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Nothospecies", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "", 
+        "abbreviation": "NOS", 
+        "prefix": "X"
+    }
+},
+{
+    "pk": 72, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Microspecies", 
+        "suffix": "", 
+        "bacteria_rank": "Microspecies", 
+        "zoology_rank": "Microspecies", 
+        "abbreviation": "MSP", 
+        "prefix": "msp._"
+    }
+},
+{
+    "pk": 73, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subspecies", 
+        "suffix": "", 
+        "bacteria_rank": "Subspecies", 
+        "zoology_rank": "Subspecies", 
+        "abbreviation": "SBS", 
+        "prefix": "subsp._"
+    }
+},
+{
+    "pk": 74, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Variety", 
+        "suffix": "", 
+        "bacteria_rank": "Variety", 
+        "zoology_rank": "Variety", 
+        "abbreviation": "VAR", 
+        "prefix": "var._"
+    }
+},
+{
+    "pk": 75, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subvariety", 
+        "suffix": "", 
+        "bacteria_rank": "Subvariety", 
+        "zoology_rank": "Subvariety", 
+        "abbreviation": "SBV", 
+        "prefix": "subvar._"
+    }
+},
+{
+    "pk": 76, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Form", 
+        "suffix": "", 
+        "bacteria_rank": "Form", 
+        "zoology_rank": "Form", 
+        "abbreviation": "FRM", 
+        "prefix": "forma_"
+    }
+},
+{
+    "pk": 77, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Subform", 
+        "suffix": "", 
+        "bacteria_rank": "Subform", 
+        "zoology_rank": "Subform", 
+        "abbreviation": "SFR", 
+        "prefix": "subforma_"
+    }
+},
+{
+    "pk": 80, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Infraspecies", 
+        "suffix": "", 
+        "bacteria_rank": "Infraspecies", 
+        "zoology_rank": "Infraspecies", 
+        "abbreviation": "INF", 
+        "prefix": "infra._"
+    }
+},
+{
+    "pk": 81, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Natio", 
+        "suffix": "", 
+        "bacteria_rank": "Natio", 
+        "zoology_rank": "Natio", 
+        "abbreviation": "NAT", 
+        "prefix": "nation_"
+    }
+},
+{
+    "pk": 82, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Race", 
+        "suffix": "", 
+        "bacteria_rank": "Race", 
+        "zoology_rank": "Race", 
+        "abbreviation": "RAC", 
+        "prefix": "race_"
+    }
+},
+{
+    "pk": 83, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Group", 
+        "suffix": "", 
+        "bacteria_rank": "Group", 
+        "zoology_rank": "Group", 
+        "abbreviation": "GRP", 
+        "prefix": "gruppe_"
+    }
+},
+{
+    "pk": 84, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Morph", 
+        "suffix": "", 
+        "bacteria_rank": "Morph", 
+        "zoology_rank": "Morph", 
+        "abbreviation": "MOR", 
+        "prefix": "morpha_"
+    }
+},
+{
+    "pk": 85, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Type", 
+        "suffix": "", 
+        "bacteria_rank": "Type", 
+        "zoology_rank": "Type", 
+        "abbreviation": "TYP", 
+        "prefix": "type_"
+    }
+},
+{
+    "pk": 86, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "facies", 
+        "suffix": "", 
+        "bacteria_rank": "facies", 
+        "zoology_rank": "facies", 
+        "abbreviation": "FAC", 
+        "prefix": "facies_"
+    }
+},
+{
+    "pk": 87, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Pattern", 
+        "suffix": "", 
+        "bacteria_rank": "Pattern", 
+        "zoology_rank": "Pattern", 
+        "abbreviation": "PAT", 
+        "prefix": "ptrn._"
+    }
+},
+{
+    "pk": 88, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "color", 
+        "suffix": "", 
+        "bacteria_rank": "color", 
+        "zoology_rank": "color", 
+        "abbreviation": "COL", 
+        "prefix": "col._"
+    }
+},
+{
+    "pk": 89, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Aberrancy", 
+        "suffix": "", 
+        "bacteria_rank": "Aberrancy", 
+        "zoology_rank": "Aberrancy", 
+        "abbreviation": "ABR", 
+        "prefix": "aberr._"
+    }
+},
+{
+    "pk": 90, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Cultivar", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "", 
+        "abbreviation": "CUL", 
+        "prefix": "cv._"
+    }
+},
+{
+    "pk": 92, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "MSName", 
+        "suffix": "\"(MS)", 
+        "bacteria_rank": "MSName", 
+        "zoology_rank": "MSName", 
+        "abbreviation": "MSN", 
+        "prefix": "\""
+    }
+},
+{
+    "pk": 95, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Unnamed", 
+        "suffix": "\"", 
+        "bacteria_rank": "Unnamed", 
+        "zoology_rank": "Unnamed", 
+        "abbreviation": "UNM", 
+        "prefix": "\""
+    }
+},
+{
+    "pk": 100, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "Hybrid", 
+        "suffix": "", 
+        "bacteria_rank": "Hybrid", 
+        "zoology_rank": "Hybrid", 
+        "abbreviation": "HYB", 
+        "prefix": ""
+    }
+},
+{
+    "pk": 101, 
+    "model": "taxonomy.taxonrank", 
+    "fields": {
+        "botany_rank": "", 
+        "suffix": "", 
+        "bacteria_rank": "", 
+        "zoology_rank": "", 
+        "abbreviation": "", 
+        "prefix": ""
+    }
+}
+]

@@ -1,0 +1,13 @@
+Test tree structure
+-------------------
+
+      \1
+      \2
+  \3      \6
+\4 \5   \7<=\8
+
+
+\node_id
+\valid_name_id <= \epithet_id
+
+Test tree is located at fixtures/test_*.json

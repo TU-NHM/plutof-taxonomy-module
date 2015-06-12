@@ -1,0 +1,15 @@
+PlutoF Taxonomy Module - database and web service for managing multiple
+biological classifications - was created as part of the PlutoF workbench
+3.0 (https://plutof.ut.ee) development.
+
+Citation: Halapuu S. "Database and web interface for managing multiple
+biological classifications." Master's thesis, University of Tartu, 2015.
+Retrieved from http://comserv.cs.ut.ee
+
+Here is a list of CONTRIBUTORS - people who have been actively involved
+in the module idea, design and code writing:
+
+	Kessy Abarenkov
+	Siim Halapuu
+	Urmas Kõljalg
+	Karl Ranna

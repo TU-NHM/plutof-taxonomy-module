@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+	<h2>{% trans 'Getting started' %}</h2>
+	<p>{% trans 'Basic information on how to get started with PlutoF taxonomy module v1 API. Take a look at our browsable API.' %}</p>
+	<a href="/api/taxonomy/" title="{% trans 'Browsable API' %}">{% trans 'Browsable API' %}</a>
+	<br />
+	<a href="/api/taxonomy/docs/" title="{% trans 'API documentation powered by django-rest-swagger' %}">{% trans 'API documentation powered by django-rest-swagger' %}</a>
+	<br />
+	<a href="https://docs.google.com/document/d/1csSAat9kAnuZMk7wqImb7IWMjNM5rwFwkQS-OyVU5aM/edit?usp=sharing" title="{% trans 'API Specification Doc' %}" target="_blank">{% trans 'API Specification Doc' %}</a>
+{% endblock %}

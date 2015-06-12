@@ -1,0 +1,55 @@
+Taxonomy module - Data Upload Tips and Tricks
+
+# General guidlines for uploading your own taxonomy data into db
+
+There are three options for populating taxonomy db with your onw data:
+1. write plain sql queries
+2. write django/python script to create db objects
+3. use DRF api to post the data
+
+All options require that you upload your data without referencing to yet non-existing objects (e.g. adding taxon node for which parent is not available yet, or adding synonym without current name present in db.)
+
+
+WHEN USING SQL QUERIES:
+
+If you decide to upload data using plain sql queries, you also need to add edge objects (tbl Edge) to all of its parent objects (full lineage) and acts with the type "new_taxon" - this is done automatically when using options 2 and 3.
+
+After tree, taxon name concept, taxon node, edge, act[, hybrid, vernacular name] objects have been uploaded, the following commands have to be run - 
+
+1. python manage.py populate_edge_list <tree_id> (creates edges to root node for specific tree)
+2. python manage.py populate_pre_traversal (calculates traversal order)
+
+NB! tree root node is created automatically (by post_save) when new tree is added. Tree root node does not require taxon name concept object to be linked to.
+
+
+WHEN USING DJANGO/PYTHON OR DRF API:
+
+No additional commands (except building elasticsearch indexes) are needed. It is recommended to turn off realtime indexing in settings (HAYSTACK_SIGNAL_PROCESSOR) for quicker data upload and rebuild index after that.
+
+There is a batch upload script created to handle data in specific Dyntaxa (https://www.dyntaxa.se/) xml format. You can simply run it on localhost by specifying infile and tree_id parameters - 
+
+python xml_batch_upload.py infile [-t tree_id]
+
+NB! Work in progress, needs further additions, modifications, and testing. Currently only tested on Protozoa and Fungi testsets. Synonym info needs to be checked externally using dyntaxa's own web service.
+
+NB2! Dyntaxa web service provides non-valid xml documents, the following s, i, and a definitions need to be added in the beginning of file before batch upload script will be able to process xml - 
+
+<s:Envelope> should be <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+<GetTaxonTreesBySearchCriteriaResult> should be <GetTaxonTreesBySearchCriteriaResult xmlns:a="http://schemas.datacontract.org/2004/07/ArtDatabanken.WebService.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+
+
+# resetting traversal order
+To reset traversal order, simply empty he taxonomy_traversalorder table, and run the following command - 
+
+python manage.py populate_pre_traversal
+
+
+# Update id_seq values for all tables (needed if you add data by specifying primary keys yourself)
+SELECT setval('taxonomy_tree_id_seq', (SELECT max(id) FROM taxonomy_tree));
+SELECT setval('taxonomy_taxonnode_id_seq', (SELECT max(id) FROM taxonomy_taxonnode));
+SELECT setval('taxonomy_taxonnameconcept_id_seq', (SELECT max(id) FROM taxonomy_taxonnameconcept));
+SELECT setval('taxonomy_commonname_id_seq', (SELECT max(id) FROM taxonomy_commonname));
+SELECT setval('taxonomy_act_id_seq', (SELECT max(id) FROM taxonomy_act));
+SELECT setval('taxonomy_edge_id_seq', (SELECT max(id) FROM taxonomy_edge));
+SELECT setval('taxonomy_traversalorder_id_seq', (SELECT max(id) FROM taxonomy_traversalorder));
+SELECT setval('taxonomy_hybridtaxonnode_id_seq', (SELECT max(id) FROM taxonomy_hybridtaxonnode));

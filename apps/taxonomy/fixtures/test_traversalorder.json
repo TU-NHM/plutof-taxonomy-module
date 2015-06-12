@@ -1,0 +1,62 @@
+[
+{
+    "pk": 1,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 2,
+        "next": 3,
+        "order_type": "pre",
+        "previous": 7
+    }
+},
+{
+    "pk": 2,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 3,
+        "next": 4,
+        "order_type": "pre",
+        "previous": 2
+    }
+},
+{
+    "pk": 3,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 4,
+        "next": 5,
+        "order_type": "pre",
+        "previous": 3
+    }
+},
+{
+    "pk": 4,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 5,
+        "next": 6,
+        "order_type": "pre",
+        "previous": 4
+    }
+},
+{
+    "pk": 5,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 6,
+        "next": 7,
+        "order_type": "pre",
+        "previous": 5
+    }
+},
+{
+    "pk": 6,
+    "model": "taxonomy.traversalorder",
+    "fields": {
+        "current": 7,
+        "next": 2,
+        "order_type": "pre",
+        "previous": 6
+    }
+}
+]

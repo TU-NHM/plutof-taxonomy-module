@@ -1,0 +1,26 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  clear: both;
+  z-index: 10;
+  height: 60px;
+  width: 95%;
+  margin: 0 2.5%;
+}
+
+footer p {
+  text-align: center;
+  color: gray;
+  border-top: 1px solid #DDDDDD;
+  padding-top: 10px;
+}
+
+footer a {
+  color: gray !important;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: gray;
+}

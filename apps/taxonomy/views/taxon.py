@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from apps.taxonomy.serializers.taxon import TaxonSerializer
 from apps.taxonomy.models import TaxonNode, Filter
 from apps.taxonomy.fields.taxon_parent_field import TaxonParentField
+from apps.taxonomy.search_indexes import TaxonNodeIndex
 
 
 class TaxonView(viewsets.ModelViewSet):
@@ -79,6 +80,7 @@ class TaxonView(viewsets.ModelViewSet):
         else:
             taxon_node.post_changed(parent=parent, remarks=remarks, citation_text=citation_text)
         super(TaxonView, self).post_save(taxon_node)
+        TaxonNodeIndex().update_object(taxon_node)
 
     def pre_save(self, obj):
         obj._remarks = self.request.DATA.get('remarks', '')

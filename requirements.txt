@@ -1,15 +1,15 @@
-Django==1.7.8 # Django main package
-Markdown==2.6.2 # DRF Browsable API
+Django==1.7.11 # Django main package
+Markdown==2.6.4 # DRF Browsable API
 django-guardian==1.2.5 # Object based permissions, used by many apps
-djangorestframework==2.4.5 # API
-psycopg2==2.5.4 # PostgreSQL
-django-cors-headers==1.0.0 # CORS (Cross-Origin Resource Sharing)
-factory-boy==2.4.1 # Used for testing
-django-model-utils==2.2 # Used for getting info about previous state of taxon nodes when creating acts
+djangorestframework==2.4.8 # API
+psycopg2==2.6.1 # PostgreSQL
+django-cors-headers==1.1.0 # CORS (Cross-Origin Resource Sharing)
+factory-boy==2.6.0 # Used for testing
+django-model-utils==2.3.1 # Used for getting info about previous state of taxon nodes when creating acts
 django-haystack==2.3.1 # Django Haystack for search
-mock==1.0.1 # Mocking methods and objects in tests
-django-filter==0.9.2 # DRF filtering support
-django-autocomplete-light==2.0.9    # Autocomplete fields support
-elasticsearch==1.2.0        # Elasticsearch support
-django-rest-swagger==0.3.2  # Used for documenting code
+mock==1.3.0 # Mocking methods and objects in tests
+django-filter==0.10.0 # DRF filtering support
+django-autocomplete-light==2.2.5    # Autocomplete fields support
+elasticsearch==1.7.0        # Elasticsearch support
+django-rest-swagger==0.3.4  # Used for documenting code
 git+https://github.com/glassresistor/django-oauth2-provider.git@django1.7-compatibility     # OAuth2 support

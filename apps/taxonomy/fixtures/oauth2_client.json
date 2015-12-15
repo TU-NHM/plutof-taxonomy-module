@@ -6,8 +6,8 @@
     "client_type": 0,
     "redirect_uri": "http://localhost:7000/",
     "user": 1,
-    "client_id": "4908fdadb35697117048",
-    "client_secret": "299191e8d310a3d818ac16f8f103711a3e968e14"
+    "client_id": "4908fdadf35697117048",
+    "client_secret": "299191c8d310a3d818ac16f8f103711a3e968e14"
   },
   "model": "oauth2.client",
   "pk": 1

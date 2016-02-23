@@ -1,0 +1,211 @@
+#!/usr/bin/python
+import sys
+import argparse
+import csv
+import httplib
+import urllib
+import json
+import time
+from urlparse import urlparse
+
+parser = argparse.ArgumentParser(description="Script to upload data from csv formatted file into taxonomy module.")
+parser.add_argument("infile", help="csv formatted file, see docs for the exact format")
+parser.add_argument("-t", "--tree", help="tree_id", type=int)
+parser.add_argument("-r", "--rank_type", help="rank_type", type=int)
+parser.add_argument("-b", "--base_url", help="base url, e.g. http://localhost:7000", required=True)
+args = parser.parse_args()
+
+# open files to print errors and tab-separated list of correct taxa
+f = open("csv_error.log", "w")
+m = open("csv_main.txt", "w")
+
+if args.rank_type == 1:
+    rank_dict = {"1": "10", "2": "20", "3": "23", "4": "28", "5": "30", "6": "33", "7": "38",
+                 "8": "40", "9": "43", "10": "48", "11": "50", "12": "53", "13": "55",
+                 "14": "60", "15": "63", "16": "65", "17": "70", "18": "73", "19": "74",
+                 "20": "76", "21": "100", "22": "90", "25": "34", "27": "67", "28": "67",
+                 "29": "44", "30": "35", "31": "36", "32": "84", "33": "47", "35": "13",
+                 "37": "14", "38": "18", "39": "24", "41": "37", "44": "56", "49": "69",
+                 "50": "72"}
+elif args.rank_type == 2:
+    rank_dict = {"kingdom": "10", "phylum": "20", "subphylum": "23", "superclass": "28",
+                 "class": "30", "subclass": "33", "superorder": "38", "order": "40",
+                 "suborder": "43", "superfamily": "48", "family": "50", "subfamily": "53",
+                 "tribe": "55", "genus": "60", "subgenus": "63", "section": "65",
+                 "species": "70", "subspecies": "73", "variety": "74", "form": "76",
+                 "hybrid": "100", "cultivar": "90", "infraclass": "34", "group_genus": "67",
+                 "infraorder": "44", "division": "35", "subdivision": "36", "morph": "84",
+                 "subkingdom": "13", "infrakingdom": "14", "superphylum": "18",
+                 "infraphylum": "24", "infradivision": "37", "subtribe": "56",
+                 "aggregate": "69", "microspecies": "72", "section": "47"}
+else:
+    rank_dict = {"10": "10", "20": "20", "23": "23", "28": "28", "30": "30", "33": "33",
+                 "38": "38", "40": "40", "43": "43", "48": "48", "50": "50", "53": "53",
+                 "55": "55", "60": "60", "63": "63", "65": "65", "70": "70", "73": "73",
+                 "74": "74", "76": "76", "100": "100", "90": "90", "34": "34", "67": "67",
+                 "44": "44", "35": "35", "36": "36", "84": "84", "13": "13", "14": "14",
+                 "18": "18", "24": "24", "37": "37", "56": "56", "69": "69", "72": "72",
+                 "47": "47"}
+
+""" Add to PlutoF:
+14 - Infrakingdom/present,
+24 - Infraphylum/present,
+(33) 47 - Organism group, Section/present,
+(27,28) 67 - Group (Genus)/present
+"""
+
+# create dicts to hold new db id-s and urls to refer back to parent_id-s
+taxonomy_id_dict = {}
+taxonomy_url_dict = {}
+
+# record count
+count = 0
+err = 0
+
+# start counting runtime
+time_start_total = time.time()
+time_start_part = time.time()
+
+base_url = args.base_url
+base = urlparse(base_url)
+
+# create connection
+conn = httplib.HTTPConnection(base.netloc)
+conn.request("GET", "/api/taxonomy/")
+r1 = conn.getresponse()
+
+# authorize
+print "Authenticating..."
+headers = {"Content-type": "application/x-www-form-urlencoded",
+           "Accept": "text/plain"}
+params = urllib.urlencode({"client_id": "4908fdadf35697117048",
+                           "client_secret": "299191c8d310a3d818ac16f8f103711a3e968e14",
+                           "grant_type": "password",
+                           "username": "admin",
+                           "password": "pass",
+                           "scope": "write"})
+conn.request("POST", "/oauth2/access_token/", params, headers)
+response = conn.getresponse()
+data = response.read()
+json_data = json.loads(data)
+access_token = json_data["access_token"]
+token_type = json_data["token_type"]
+token = token_type + " " + access_token
+
+# POST new tree
+if args.tree is None:
+    headers = {"Content-type": "application/x-www-form-urlencoded",
+               "Accept": "application/json", "Authorization": token}
+    params = urllib.urlencode({"format": "json", "name": "new tree"})
+    conn.request("POST", "/api/taxonomy/tree/", params, headers)
+    response = conn.getresponse()
+    if response.status != 201:
+        sys.exit
+    data = response.read()
+    json_data = json.loads(data)
+    new_tree_id = json_data["id"]
+    new_tree_url = json_data["url"]
+    print "New tree added with id " + str(new_tree_id)
+else:
+    new_tree_id = args.tree
+    new_tree_url = base_url + "/api/taxonomy/tree/" + str(args.tree) + "/"
+
+# POST taxon node data
+with open(args.infile) as source:
+    dataReader = csv.reader(source, delimiter="\t")
+    for row in dataReader:
+        # taxon_id [0]
+        # parent_taxon_id [1]
+        # taxon_rank_id [2]
+        # epithet [3]
+        # author [4]
+        # year [5]
+        # code [6]
+        # vernacular names [7]
+        # use parentheses [8]
+        count += 1
+        params = None
+        use_parentheses = "False"
+        if count > 1:
+            headers = {"Content-type": "application/x-www-form-urlencoded",
+                       "Accept": "application/json", "Authorization": token}
+            if row[0] in taxonomy_id_dict:
+                # taxon already added, skip the duplicate
+                err += 1
+                f.write("ERR: Taxon already processed - " + str(row[0]) + "\n")
+            elif int(row[1]) == int(0):
+                # add first level taxon (incl. taxa with parent node missing)
+                tmp_taxon_rank = base_url + "/api/taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
+                if row[8] and int(row[8]) == 1:
+                    use_parentheses = "True"
+                params = urllib.urlencode({"format": "json",
+                                           "epithet": str(row[3]),
+                                           "tree": new_tree_url,
+                                           "epithet_author": str(row[4]),
+                                           "year_described_in": str(row[5]),
+                                           "use_parentheses": use_parentheses,
+                                           "taxon_rank": tmp_taxon_rank,
+                                           "code": str(row[6])})
+                f.write("ERR: First level taxon - " + str(row[0]) + "\n")
+            elif not row[1] in taxonomy_url_dict:
+                err += 1
+                f.write("ERR: Parent missing for  - " + str(row[0]) + "\n")
+            else:
+                # parent is present
+                tmp_taxon_rank = base_url + "/api/taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
+                if row[8] and int(row[8]) == 1:
+                    use_parentheses = "True"
+                params = urllib.urlencode({"format": "json",
+                                           "epithet": str(row[3]),
+                                           "tree": new_tree_url,
+                                           "epithet_author": str(row[4]),
+                                           "year_described_in": str(row[5]),
+                                           "use_parentheses": use_parentheses,
+                                           "taxon_rank": tmp_taxon_rank,
+                                           "code": str(row[6]),
+                                           "parent": str(taxonomy_url_dict[row[1]])})
+            if params:
+                conn.request("POST", "/api/taxonomy/taxon/", params, headers)
+                response = conn.getresponse()
+                if response.status != 201:
+                    exit()
+                data = response.read()
+                json_data = json.loads(data)
+                new_id = json_data["id"]
+                new_url = json_data["url"]
+                taxonomy_id_dict[row[0]] = new_id
+                taxonomy_url_dict[row[0]] = new_url
+                # write mapping to main file
+                m.write(str(row[0]) + "\t" + str(new_id) + "\n")
+
+                # check if there are vernacular names to be added
+                if row[7]:
+                    cn_list = row[7].split(";")
+                    for cn in cn_list:
+                        tmp_cn = cn.split(":")
+                        tmp_lang_url = base_url + "/api/taxonomy/language/" + tmp_cn[1] + "/"
+                        params = urllib.urlencode({"format": "json",
+                                                   "common_name": str(tmp_cn[0]),
+                                                   "iso_639": tmp_lang_url,
+                                                   "taxon_node": new_url})
+                        conn.request("POST", "/api/taxonomy/vernacular_name/", params, headers)
+                        response = conn.getresponse()
+                        if response.status != 201:
+                            exit()
+
+            # display process status
+            if (count % 500) == 0:
+                time_end_part = time.time()
+                print "%d taxon nodes done! - time taken: %.2f seconds" % (count, time_end_part - time_start_part)
+                time_start_part = time.time()
+f.close()
+m.close()
+
+# print out the number of correct taxa about to be added to db
+total_count = count - err - 1
+print "\nTotal number of taxa: " + str(total_count)
+
+# end here and print out runtime
+print "Everything seemed to work smoothly, will stop here."
+time_end_total = time.time()
+print "Total time taken: %.2f seconds" % (time_end_total - time_start_total)

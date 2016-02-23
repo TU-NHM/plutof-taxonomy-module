@@ -26,9 +26,12 @@ WHEN USING DJANGO/PYTHON OR DRF API:
 
 No additional commands (except building elasticsearch indexes) are needed. It is recommended to turn off realtime indexing in settings (HAYSTACK_SIGNAL_PROCESSOR) for quicker data upload and rebuild index after that.
 
-There is a batch upload script created to handle data in specific Dyntaxa (https://www.dyntaxa.se/) xml format. You can simply run it on localhost by specifying infile and tree_id parameters - 
+There are two batch upload scripts created to handle data 1) in specific Dyntaxa (https://www.dyntaxa.se/) xml format, and 2) in simple csv format.
 
-python xml_batch_upload.py infile [-t tree_id]
+XML FOR DYNTAXA
+
+xml processor can be simply run on localhost by specifying infile and tree_id parameters - 
+python xml_batch_upload.py infile [-t tree_id] 
 
 NB! Work in progress, needs further additions, modifications, and testing. Currently only tested on Protozoa and Fungi testsets. Synonym info needs to be checked externally using dyntaxa's own web service.
 
@@ -37,6 +40,33 @@ NB2! Dyntaxa web service provides non-valid xml documents, the following s, i, a
 <s:Envelope> should be <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
 <GetTaxonTreesBySearchCriteriaResult> should be <GetTaxonTreesBySearchCriteriaResult xmlns:a="http://schemas.datacontract.org/2004/07/ArtDatabanken.WebService.Data" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 
+CSV LOADER
+
+cvs loader can be run by specifying infile, tree id, taxon rank format, and base url - 
+python csv_batch_upload.py infile [-t tree_id] [-r rank_type] -b http://localhost:7000
+
+There can be 9 fields in tab-separated (\t) infile:
+
+1) taxon id
+2) parent taxon id
+3) taxon rank id
+4) taxon name / inter- and intraspecific epithet
+5) name author
+6) year described in
+7) original code for this name
+8) vernacular names (multiple names separated by ;, fllowed by ISO 639-2 language code)
+9) use parentheses (whether to include parentheses around author and year combination)
+
+Example input based on Dyntaxa data:
+
+3000188	0	40	Lepidoptera	Linnaeus	1758	3000188	fjärilar:swe	
+2002975	3000188	48	Hesperioidea	Latreille	1809	2002975	tjockhuvudfjärilar:swe	
+2001250	2002975	50	Hesperiidae	Latreille	1809		2001250	tjockhuvuden:swe	
+1000492	2001250	53	Pyrginae	Burmeister	1878		1000492	visslare:swe	
+1000509	1000492	60	Erynnis	Schrank	1801		1000509		
+201018	1000509	70	tages	Linnaeus	1758		201018	skogsvisslare:swe	1
+
+There are 3 ways to define taxon ranks - 1) Dyntaxa categories, 2) named ranks, and 3) PlutoF categories used within this module. See the csv upload script for the list and mapping of these categories.
 
 # resetting traversal order
 To reset traversal order, simply empty he taxonomy_traversalorder table, and run the following command - 

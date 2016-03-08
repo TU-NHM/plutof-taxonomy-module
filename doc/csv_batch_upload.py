@@ -91,6 +91,7 @@ json_data = json.loads(data)
 access_token = json_data["access_token"]
 token_type = json_data["token_type"]
 token = token_type + " " + access_token
+print "Got the token, will proceed now."
 
 # POST new tree
 if args.tree is None:
@@ -109,6 +110,7 @@ if args.tree is None:
 else:
     new_tree_id = args.tree
     new_tree_url = base_url + "/api/taxonomy/tree/" + str(args.tree) + "/"
+    print "Using existing tree to add taxon nodes - " + new_tree_url
 
 # POST taxon node data
 with open(args.infile) as source:

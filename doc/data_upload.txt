@@ -57,8 +57,9 @@ There can be 9 fields in tab-separated (\t) infile:
 8) vernacular names (multiple names separated by ;, fllowed by ISO 639-2 language code)
 9) use parentheses (whether to include parentheses around author and year combination)
 
-Example input based on Dyntaxa data:
+Example input based on Dyntaxa data (header line should be included):
 
+taxon_id	parent_id	rank_id	name/epithet	author	year	code	vernacular names	use_parentheses
 3000188	0	40	Lepidoptera	Linnaeus	1758	3000188	fjärilar:swe	
 2002975	3000188	48	Hesperioidea	Latreille	1809	2002975	tjockhuvudfjärilar:swe	
 2001250	2002975	50	Hesperiidae	Latreille	1809		2001250	tjockhuvuden:swe	

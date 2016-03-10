@@ -43,7 +43,7 @@ NB2! Dyntaxa web service provides non-valid xml documents, the following s, i, a
 CSV LOADER
 
 cvs loader can be run by specifying infile, tree id, taxon rank format, and base url - 
-python csv_batch_upload.py infile [-t tree_id] [-r rank_type] -b http://localhost:7000
+python csv_batch_upload.py infile [-t tree_id] [-r rank_type] -b http://localhost:7000/api/ -a http://localhost:7000/oauth2/access_token/
 
 There can be 9 fields in tab-separated (\t) infile:
 

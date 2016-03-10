@@ -2,17 +2,16 @@
 import sys
 import argparse
 import csv
-import httplib
-import urllib
 import json
 import time
-from urlparse import urlparse
+import requests
 
 parser = argparse.ArgumentParser(description="Script to upload data from csv formatted file into taxonomy module.")
 parser.add_argument("infile", help="csv formatted file, see docs for the exact format")
 parser.add_argument("-t", "--tree", help="tree_id", type=int)
 parser.add_argument("-r", "--rank_type", help="rank_type", type=int)
-parser.add_argument("-b", "--base_url", help="base url, e.g. http://localhost:7000", required=True)
+parser.add_argument("-b", "--base_url", help="base url, e.g. http://localhost:7000/api/ or https://api.example.com/", required=True)
+parser.add_argument("-a", "--auth_url", help="oauth2 url, e.g. http://localhost:7000/oauth2/access_token/ or https://api.example.com/oauth2/access_token/", required=True)
 args = parser.parse_args()
 
 # open files to print errors and tab-separated list of correct taxa
@@ -66,51 +65,60 @@ err = 0
 time_start_total = time.time()
 time_start_part = time.time()
 
+# settings
 base_url = args.base_url
-base = urlparse(base_url)
-
-# create connection
-conn = httplib.HTTPConnection(base.netloc)
-conn.request("GET", "/api/taxonomy/")
-r1 = conn.getresponse()
+url_oauth2 = args.auth_url
+client_id = "4908fdadf35697117048"
+client_secret = "299191c8d310a3d818ac16f8f103711a3e968e14"
+uname = "admin"
+pwd = "pass"
 
 # authorize
 print "Authenticating..."
-headers = {"Content-type": "application/x-www-form-urlencoded",
-           "Accept": "text/plain"}
-params = urllib.urlencode({"client_id": "4908fdadf35697117048",
-                           "client_secret": "299191c8d310a3d818ac16f8f103711a3e968e14",
-                           "grant_type": "password",
-                           "username": "admin",
-                           "password": "pass",
-                           "scope": "write"})
-conn.request("POST", "/oauth2/access_token/", params, headers)
-response = conn.getresponse()
-data = response.read()
-json_data = json.loads(data)
+oauth2_headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
+oauth2_payload = {"client_id": client_id,
+                  "client_secret": client_secret,
+                  "grant_type": "password",
+                  "username": uname,
+                  "password": pwd,
+                  "scope": "write"}
+r = requests.post(url_oauth2, data=oauth2_payload, headers=oauth2_headers)
+if r.status_code != 200:
+    f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
+    f.write(json.dumps(oauth2_payload))
+    r.raise_for_status()
+    sys.exit()
+
+json_data = r.json()
 access_token = json_data["access_token"]
 token_type = json_data["token_type"]
 token = token_type + " " + access_token
-print "Got the token, will proceed now."
+
+print "Got the token, will proceed now. Will report after each 500 updates."
+
+# prepare headers with access token
+url_headers = {"Authorization": token}
+url_headers_json = {"Authorization": token, "Content-type": "application/json"}
 
 # POST new tree
 if args.tree is None:
-    headers = {"Content-type": "application/x-www-form-urlencoded",
-               "Accept": "application/json", "Authorization": token}
-    params = urllib.urlencode({"format": "json", "name": "new tree"})
-    conn.request("POST", "/api/taxonomy/tree/", params, headers)
-    response = conn.getresponse()
-    if response.status != 201:
-        sys.exit
-    data = response.read()
-    json_data = json.loads(data)
+    url_post_tree = base_url + "taxonomy/tree/"
+    meta_payload = {"name": "New tree"}
+    r = requests.post(url_post_tree, data=json.dumps(meta_payload), headers=url_headers_json)
+    if r.status_code != 201:
+        f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
+        f.write(json.dumps(meta_payload))
+        f.write("Cannot add new tree\n")
+        sys.exit()
+    json_data = r.json()
     new_tree_id = json_data["id"]
     new_tree_url = json_data["url"]
     print "New tree added with id " + str(new_tree_id)
 else:
     new_tree_id = args.tree
-    new_tree_url = base_url + "/api/taxonomy/tree/" + str(args.tree) + "/"
+    new_tree_url = base_url + "taxonomy/tree/" + str(args.tree) + "/"
     print "Using existing tree to add taxon nodes - " + new_tree_url
+
 
 # POST taxon node data
 with open(args.infile) as source:
@@ -126,53 +134,55 @@ with open(args.infile) as source:
         # vernacular names [7]
         # use parentheses [8]
         count += 1
-        params = None
+        meta_payload = None
         use_parentheses = "False"
         if count > 1:
-            headers = {"Content-type": "application/x-www-form-urlencoded",
-                       "Accept": "application/json", "Authorization": token}
             if row[0] in taxonomy_id_dict:
                 # taxon already added, skip the duplicate
                 err += 1
                 f.write("ERR: Taxon already processed - " + str(row[0]) + "\n")
             elif int(row[1]) == int(0):
                 # add first level taxon (incl. taxa with parent node missing)
-                tmp_taxon_rank = base_url + "/api/taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
+                tmp_taxon_rank = base_url + "taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
                 if row[8] and int(row[8]) == 1:
                     use_parentheses = "True"
-                params = urllib.urlencode({"format": "json",
-                                           "epithet": str(row[3]),
-                                           "tree": new_tree_url,
-                                           "epithet_author": str(row[4]),
-                                           "year_described_in": str(row[5]),
-                                           "use_parentheses": use_parentheses,
-                                           "taxon_rank": tmp_taxon_rank,
-                                           "code": str(row[6])})
+                meta_payload = {"format": "json",
+                                "epithet": str(row[3]),
+                                "tree": new_tree_url,
+                                "epithet_author": str(row[4]),
+                                "year_described_in": str(row[5]),
+                                "use_parentheses": use_parentheses,
+                                "taxon_rank": tmp_taxon_rank,
+                                "code": str(row[6])
+                                }
                 f.write("ERR: First level taxon - " + str(row[0]) + "\n")
             elif not row[1] in taxonomy_url_dict:
                 err += 1
                 f.write("ERR: Parent missing for  - " + str(row[0]) + "\n")
             else:
                 # parent is present
-                tmp_taxon_rank = base_url + "/api/taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
+                tmp_taxon_rank = base_url + "taxonomy/taxon_rank/" + str(rank_dict[row[2]]) + "/"
                 if row[8] and int(row[8]) == 1:
                     use_parentheses = "True"
-                params = urllib.urlencode({"format": "json",
-                                           "epithet": str(row[3]),
-                                           "tree": new_tree_url,
-                                           "epithet_author": str(row[4]),
-                                           "year_described_in": str(row[5]),
-                                           "use_parentheses": use_parentheses,
-                                           "taxon_rank": tmp_taxon_rank,
-                                           "code": str(row[6]),
-                                           "parent": str(taxonomy_url_dict[row[1]])})
-            if params:
-                conn.request("POST", "/api/taxonomy/taxon/", params, headers)
-                response = conn.getresponse()
-                if response.status != 201:
-                    exit()
-                data = response.read()
-                json_data = json.loads(data)
+                meta_payload = {"format": "json",
+                                "epithet": str(row[3]),
+                                "tree": new_tree_url,
+                                "epithet_author": str(row[4]),
+                                "year_described_in": str(row[5]),
+                                "use_parentheses": use_parentheses,
+                                "taxon_rank": tmp_taxon_rank,
+                                "code": str(row[6]),
+                                "parent": str(taxonomy_url_dict[row[1]])
+                                }
+            if meta_payload:
+                url_post_taxonnode = base_url + "taxonomy/taxon/"
+                r = requests.post(url_post_taxonnode, data=json.dumps(meta_payload), headers=url_headers_json)
+                if r.status_code != 201:
+                    f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
+                    f.write(json.dumps(meta_payload))
+                    f.write("Cannot add new taxonnode - " + row[0] + "\n")
+                    sys.exit()
+                json_data = r.json()
                 new_id = json_data["id"]
                 new_url = json_data["url"]
                 taxonomy_id_dict[row[0]] = new_id
@@ -185,15 +195,18 @@ with open(args.infile) as source:
                     cn_list = row[7].split(";")
                     for cn in cn_list:
                         tmp_cn = cn.split(":")
-                        tmp_lang_url = base_url + "/api/taxonomy/language/" + tmp_cn[1] + "/"
-                        params = urllib.urlencode({"format": "json",
-                                                   "common_name": str(tmp_cn[0]),
-                                                   "iso_639": tmp_lang_url,
-                                                   "taxon_node": new_url})
-                        conn.request("POST", "/api/taxonomy/vernacular_name/", params, headers)
-                        response = conn.getresponse()
-                        if response.status != 201:
-                            exit()
+                        if tmp_cn[1]:
+                            url_post_commonname = base_url + "taxonomy/vernacular_name/"
+                            tmp_lang_url = base_url + "taxonomy/language/" + tmp_cn[1] + "/"
+                            meta_payload = {"common_name": str(tmp_cn[0]),
+                                            "iso_639": tmp_lang_url,
+                                            "taxon_node": new_url
+                                            }
+                            r = requests.post(url_post_commonname, data=json.dumps(meta_payload), headers=url_headers_json)
+                            if r.status_code != 201:
+                                f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
+                                f.write(json.dumps(meta_payload))
+                                f.write("Cannot add new vernacular name - " + row[0] + "\n")
 
             # display process status
             if (count % 500) == 0:

@@ -47,6 +47,7 @@ fixtures:
 	python manage.py loaddata apps/taxonomy/fixtures/test_taxonnameconcept.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_taxonnode.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_edge.json
+	python manage.py loaddata apps/taxonomy/fixtures/test_act.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_traversalorder.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_act.json
 

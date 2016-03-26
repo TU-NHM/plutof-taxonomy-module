@@ -28,7 +28,7 @@ server:
 	python manage.py runserver 0.0.0.0:7000 --settings=settings.local
 
 fast-server:
-	@echo "Running fast server (no es, no debug)"
+	@echo "Running fast server (ES base signal processor, no debug)"
 	python manage.py runserver 0.0.0.0:7000 --insecure --settings=settings.local_fast
 
 production-server:

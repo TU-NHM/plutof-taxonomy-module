@@ -1,4 +1,5 @@
 import os
+
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__ + "/.."))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -10,11 +11,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'dii*=0j$^ge*wax3@y(v0*j6aad82&(xjwd+gklh2v9&h&=h9x'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -161,9 +157,6 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack_taxonomy',
     },
 }
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.BaseSignalProcessor'
 
 # django-rest-swagger settings
 SWAGGER_SETTINGS = {

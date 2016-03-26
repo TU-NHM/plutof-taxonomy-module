@@ -1,0 +1,4 @@
+ERR: First level taxon - 3000188
+http://localhost:7000/api/taxonomy/taxon/
+500: <h1>Server Error (500)</h1>
+{"epithet_author": "Linnaeus", "code": "3000188", "taxon_rank": "http://localhost:7000/api/taxonomy/taxon_rank/40/", "format": "json", "tree": "http://localhost:7000/api/taxonomy/tree/12/", "year_described_in": "1758", "use_parentheses": "False", "epithet": "Lepidoptera"}Cannot add new taxonnode - 3000188

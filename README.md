@@ -57,6 +57,11 @@ Load aouth2 client (for data import)
 python manage.py loaddata apps/taxonomy/fixtures/oauth2_client.json
 ```
 
+Import test tree
+```console
+make test-tree
+```
+
 ## Tests
 Run tests
 ```console

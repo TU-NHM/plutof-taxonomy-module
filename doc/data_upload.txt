@@ -24,7 +24,9 @@ NB! tree root node is created automatically (by post_save) when new tree is adde
 
 WHEN USING DJANGO/PYTHON OR DRF API:
 
-No additional commands (except building elasticsearch indexes) are needed. It is recommended to turn off realtime indexing in settings (HAYSTACK_SIGNAL_PROCESSOR) for quicker data upload and rebuild index after that.
+No additional commands (except building elasticsearch indexes) are needed. It is recommended to turn off realtime indexing in settings (HAYSTACK_SIGNAL_PROCESSOR) for quicker data upload and rebuild index after that. This can be achieved by starting server with fast run options (elasticsearch using BaseSignalProcessor and debug mode switched off) - 
+
+make fast-server
 
 There are two batch upload scripts created to handle data 1) in specific Dyntaxa (https://www.dyntaxa.se/) xml format, and 2) in simple csv format.
 

@@ -1,0 +1,98 @@
+[
+{
+    "pk": 1,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 2,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 2,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 3,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 3,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 4,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 4,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 5,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 5,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 6,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 6,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 7,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 7,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 8,
+        "type": "new_taxon",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+},
+{
+    "pk": 8,
+    "model": "taxonomy.act",
+    "fields": {
+        "taxon_node": 8,
+        "type": "marked_as_synonym",
+        "previous_value": "",
+        "remarks": "",
+        "citation_text": "",
+        "created_at": "2000-01-01 00:00:00+03:00"
+    }
+}
+]

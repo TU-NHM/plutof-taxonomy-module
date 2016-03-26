@@ -10,9 +10,11 @@ parser = argparse.ArgumentParser(description="Script to upload data from csv for
 parser.add_argument("infile", help="csv formatted file, see docs for the exact format")
 parser.add_argument("-t", "--tree", help="tree_id", type=int)
 parser.add_argument("-r", "--rank_type", help="rank_type", type=int)
+parser.add_argument("-l", "--line", help="line number to continue with", type=int)
 parser.add_argument("-b", "--base_url", help="base url, e.g. http://localhost:7000/api/ or https://api.example.com/", required=True)
 parser.add_argument("-a", "--auth_url", help="oauth2 url, e.g. http://localhost:7000/oauth2/access_token/ or https://api.example.com/oauth2/access_token/", required=True)
 args = parser.parse_args()
+r_line = args.line
 
 # open files to print errors and tab-separated list of correct taxa
 f = open("csv_error.log", "w")
@@ -56,6 +58,14 @@ else:
 # create dicts to hold new db id-s and urls to refer back to parent_id-s
 taxonomy_id_dict = {}
 taxonomy_url_dict = {}
+
+# read in lines already processed when restarting the upload
+if r_line:
+    old_taxonomy_id_dict = {}
+    with open("main.txt") as source:
+        dataReader = csv.reader(source, delimiter="\t")
+        for row in dataReader:
+            old_taxonomy_id_dict[row[0]] = row[1]
 
 # record count
 count = 0
@@ -137,6 +147,12 @@ with open(args.infile) as source:
         meta_payload = None
         use_parentheses = "False"
         if count > 1:
+            # skip files until the one specified in cmdline [-r]
+            if r_line and count < int(r_line):
+                taxonomy_id_dict[row[0]] = old_taxonomy_id_dict[row[0]]
+                taxonomy_url_dict[row[0]] = base_url + "taxonomy/taxon/" + str(old_taxonomy_id_dict[row[0]]) + "/"
+                continue
+
             if row[0] in taxonomy_id_dict:
                 # taxon already added, skip the duplicate
                 err += 1

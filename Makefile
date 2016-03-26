@@ -1,4 +1,4 @@
-install: dependencies initdb data traversalorder
+install: dependencies initdb data
 
 test: lint test-python
 
@@ -31,10 +31,15 @@ data:
 	@echo "Installing fixtures"
 	python manage.py loaddata apps/taxonomy/fixtures/languages.json
 	python manage.py loaddata apps/taxonomy/fixtures/taxonrank.json
+
+test-tree: fixtures traversalorder
+
+fixtures:
 	python manage.py loaddata apps/taxonomy/fixtures/test_tree.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_taxonnameconcept.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_taxonnode.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_edge.json
+	python manage.py loaddata apps/taxonomy/fixtures/test_act.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_traversalorder.json
 
 traversalorder:

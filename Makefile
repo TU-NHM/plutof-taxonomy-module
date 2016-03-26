@@ -25,7 +25,15 @@ dependencies:
 
 server:
 	@echo "Running development server"
-	python manage.py runserver 0.0.0.0:7000
+	python manage.py runserver 0.0.0.0:7000 --settings=settings.local
+
+fast-server:
+	@echo "Running fast server (ES base signal processor, no debug)"
+	python manage.py runserver 0.0.0.0:7000 --insecure --settings=settings.local_fast
+
+production-server:
+	@echo "Running production server"
+	python manage.py runserver 0.0.0.0:7000 --settings=settings.production
 
 data:
 	@echo "Installing fixtures"
@@ -41,8 +49,8 @@ fixtures:
 	python manage.py loaddata apps/taxonomy/fixtures/test_edge.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_act.json
 	python manage.py loaddata apps/taxonomy/fixtures/test_traversalorder.json
+	python manage.py loaddata apps/taxonomy/fixtures/test_act.json
 
 traversalorder:
 	@echo "Populating pre traversal order"
 	python manage.py populate_pre_traversal
-

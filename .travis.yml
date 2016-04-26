@@ -4,6 +4,4 @@ python:
 install: 
     - pip install flake8
     - pip install --upgrade -r requirements.txt
-before_script:
-    flake8 .
 script: make test

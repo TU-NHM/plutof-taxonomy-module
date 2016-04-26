@@ -4,4 +4,8 @@ python:
 install: 
     - pip install flake8
     - pip install --upgrade -r requirements.txt
+services:
+    - elasticsearch
+before_script:
+    - sleep 10
 script: make test

@@ -1,5 +1,6 @@
-PlutoF Taxonomy Module
-============
+# PlutoF Taxonomy Module
+
+[![Build Status](https://travis-ci.org/TU-NHM/plutof-taxonomy-module.svg?branch=master)](https://travis-ci.org/TU-NHM/plutof-taxonomy-module)
 
 Database and web service for managing multiple biological classifications.
 

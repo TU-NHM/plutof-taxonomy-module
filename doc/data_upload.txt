@@ -44,8 +44,8 @@ NB2! Dyntaxa web service provides non-valid xml documents, the following s, i, a
 
 CSV LOADER
 
-cvs loader can be run by specifying infile, tree id, taxon rank format, and base url - 
-python csv_batch_upload.py infile [-t tree_id] [-r rank_type] -b http://localhost:7000/api/ -a http://localhost:7000/oauth2/access_token/
+cvs loader can be run by specifying infile, config file, tree id, and taxon rank format -
+python csv_batch_upload.py infile -c config_file [-t tree_id] [-r rank_type]
 
 There can be 9 fields in tab-separated (\t) infile:
 
@@ -58,6 +58,16 @@ There can be 9 fields in tab-separated (\t) infile:
 7) original code for this name
 8) vernacular names (multiple names separated by ;, fllowed by ISO 639-2 language code)
 9) use parentheses (whether to include parentheses around author and year combination)
+
+Format for configuration file is the following (all parameters shold be replaced according to user's environment) -
+
+[plutof-taxonomy-module]
+base_url = http://localhost:7000/api/
+auth_url = http://localhost:7000/oauth2/access_token/
+client_id = 4908fdadf35697117048
+client_secret = 299191c8d310a3d818ac16f8f103711a3e968e14
+uname = admin
+pwd = pass
 
 Example input based on Dyntaxa data (header line should be included):
 

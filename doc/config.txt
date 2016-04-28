@@ -1,0 +1,7 @@
+[plutof-taxonomy-module]
+base_url = http://localhost:7000/api/
+auth_url = http://localhost:7000/oauth2/access_token/
+client_id = 4908fdadf35697117048
+client_secret = 299191c8d310a3d818ac16f8f103711a3e968e14
+uname = admin
+pwd = pass

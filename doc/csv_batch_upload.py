@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import sys
+import os
 import argparse
+from ConfigParser import SafeConfigParser
 import csv
 import json
 import time
@@ -8,13 +10,13 @@ import requests
 
 parser = argparse.ArgumentParser(description="Script to upload data from csv formatted file into taxonomy module.")
 parser.add_argument("infile", help="csv formatted file, see docs for the exact format")
+parser.add_argument("-c", "--config_file", help="config file for script parameters, e.g. doc/config.txt", required=True)
 parser.add_argument("-t", "--tree", help="tree_id", type=int)
 parser.add_argument("-r", "--rank_type", help="rank_type", type=int)
 parser.add_argument("-l", "--line", help="line number to continue with", type=int)
-parser.add_argument("-b", "--base_url", help="base url, e.g. http://localhost:7000/api/ or https://api.example.com/", required=True)
-parser.add_argument("-a", "--auth_url", help="oauth2 url, e.g. http://localhost:7000/oauth2/access_token/ or https://api.example.com/oauth2/access_token/", required=True)
 args = parser.parse_args()
 r_line = args.line
+config_file = args.config_file
 
 # open files to print errors and tab-separated list of correct taxa
 f = open("csv_error.log", "w")
@@ -75,13 +77,20 @@ err = 0
 time_start_total = time.time()
 time_start_part = time.time()
 
-# settings
-base_url = args.base_url
-url_oauth2 = args.auth_url
-client_id = "4908fdadf35697117048"
-client_secret = "299191c8d310a3d818ac16f8f103711a3e968e14"
-uname = "admin"
-pwd = "pass"
+# Read config file
+if not os.path.isfile(config_file):
+    raise OSError("Invalid configuration file... " + config_file)
+config_parser = SafeConfigParser()
+config_parser.read(config_file)
+try:
+    base_url = config_parser.get("plutof-taxonomy-module", "base_url")
+    url_oauth2 = config_parser.get("plutof-taxonomy-module", "auth_url")
+    client_id = config_parser.get("plutof-taxonomy-module", "client_id")
+    client_secret = config_parser.get("plutof-taxonomy-module", "client_secret")
+    uname = config_parser.get("plutof-taxonomy-module", "uname")
+    pwd = config_parser.get("plutof-taxonomy-module", "pwd")
+except:
+    raise OSError("Some required parameters missing from config file.")
 
 # authorize
 print "Authenticating..."
@@ -197,32 +206,33 @@ with open(args.infile) as source:
                     f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
                     f.write(json.dumps(meta_payload))
                     f.write("Cannot add new taxonnode - " + row[0] + "\n")
-                    sys.exit()
-                json_data = r.json()
-                new_id = json_data["id"]
-                new_url = json_data["url"]
-                taxonomy_id_dict[row[0]] = new_id
-                taxonomy_url_dict[row[0]] = new_url
-                # write mapping to main file
-                m.write(str(row[0]) + "\t" + str(new_id) + "\n")
+                    # sys.exit()
+                else:
+                    json_data = r.json()
+                    new_id = json_data["id"]
+                    new_url = json_data["url"]
+                    taxonomy_id_dict[row[0]] = new_id
+                    taxonomy_url_dict[row[0]] = new_url
+                    # write mapping to main file
+                    m.write(str(row[0]) + "\t" + str(new_id) + "\n")
 
-                # check if there are vernacular names to be added
-                if row[7]:
-                    cn_list = row[7].split(";")
-                    for cn in cn_list:
-                        tmp_cn = cn.split(":")
-                        if tmp_cn[1]:
-                            url_post_commonname = base_url + "taxonomy/vernacular_name/"
-                            tmp_lang_url = base_url + "taxonomy/language/" + tmp_cn[1] + "/"
-                            meta_payload = {"common_name": str(tmp_cn[0]),
-                                            "iso_639": tmp_lang_url,
-                                            "taxon_node": new_url
-                                            }
-                            r = requests.post(url_post_commonname, data=json.dumps(meta_payload), headers=url_headers_json)
-                            if r.status_code != 201:
-                                f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
-                                f.write(json.dumps(meta_payload))
-                                f.write("Cannot add new vernacular name - " + row[0] + "\n")
+                    # check if there are vernacular names to be added
+                    if row[7]:
+                        cn_list = row[7].split(";")
+                        for cn in cn_list:
+                            tmp_cn = cn.split(":")
+                            if tmp_cn[1]:
+                                url_post_commonname = base_url + "taxonomy/vernacular_name/"
+                                tmp_lang_url = base_url + "taxonomy/language/" + tmp_cn[1] + "/"
+                                meta_payload = {"common_name": str(tmp_cn[0]),
+                                                "iso_639": tmp_lang_url,
+                                                "taxon_node": new_url
+                                                }
+                                r = requests.post(url_post_commonname, data=json.dumps(meta_payload), headers=url_headers_json)
+                                if r.status_code != 201:
+                                    f.write(r.url + "\n" + str(r.status_code) + ": " + r.text + "\n")
+                                    f.write(json.dumps(meta_payload))
+                                    f.write("Cannot add new vernacular name - " + row[0] + "\n")
 
             # display process status
             if (count % 500) == 0:
